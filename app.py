@@ -515,11 +515,14 @@ def draw_info_text(image, brect, handedness, hand_sign_text,
 
 
 def draw_point_history(image, point_history):
-    for index, point in enumerate(point_history):
+    enum_points = list(enumerate(point_history))
+    prev_point = enum_points[0][1]
+    for index, point in enum_points[1:]:
         if point[0] != 0 and point[1] != 0:
-            cv.circle(image, (point[0], point[1]), 1 + int(index / 2),
-                      (152, 251, 152), 2)
-
+            # cv.circle(image, (point[0], point[1]), 1 + int(index / 2),
+            #           (152, 251, 152), 2)
+            cv.line(image, (prev_point[0], prev_point[1]), (point[0], point[1]), (152, 251, 152), 2)
+            prev_point = point
     return image
 
 
